@@ -72,7 +72,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="content container-fluid py-4 mt-0 mt-md-5">
             @yield('content')
         </main>
     </div>
