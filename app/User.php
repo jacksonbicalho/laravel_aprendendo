@@ -1,14 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+
 
     protected $with = ['model'];
 
@@ -45,5 +45,14 @@ class User extends Authenticatable implements MustVerifyEmail
       return $this->morphTo();
     }
 
+    public function hasProfile(): bool
+    {
+        return !empty($this->model);
+    }
+
+    public function getUser(): User
+    {
+        return $this;
+    }
 
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerForm;
 use App\Customer;
-use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
@@ -25,6 +24,12 @@ class CustomerController extends Controller
      */
     public function create()
     {
+
+        if ($this->hasProfile(auth()->user())) {
+            return redirect(route('home'))
+            ->with('warning', 'Página não encontrada.');
+        }
+
         return view('customer.create');
     }
 

@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -23,6 +21,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (!$this->hasProfile(auth()->user())) {
+            return redirect(route('customers.create'))
+            ->with('warning', 'Conclua seu cadastro por favor');
+        }
+
         return view('home');
     }
 }

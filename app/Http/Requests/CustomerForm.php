@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Customer;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerForm extends FormRequest
 {
@@ -35,11 +37,13 @@ class CustomerForm extends FormRequest
 
     public function persist(Customer $sustomer)
     {
+        $user = User::find( Auth::user()->id );
         $sustomer->cpf = $this->cpf;
         $sustomer->name = $this->name;
         $sustomer->surname = $this->surname;
         $sustomer->phone = $this->phone;
         $sustomer->save();
+        $sustomer->user()->save($user);
     }
 
     /**
