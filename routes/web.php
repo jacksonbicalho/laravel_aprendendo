@@ -18,11 +18,14 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('home');
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('customers', CustomerController::class);
+
+
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::resource('customers', CustomerController::class);
