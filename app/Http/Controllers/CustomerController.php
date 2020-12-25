@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerForm;
 use App\Customer;
 use Illuminate\Http\Request;
 
@@ -33,18 +34,10 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerForm $request)
     {
 
-        $validatedData = $request->validate([
-            'cpf' => 'required',
-        ]);
-
-        $input = $request->all();
-        $customer = Customer::create($input);
-
-        return back()->with('success', 'Customer created successfully.');
-
+        return $this->update($request, new Customer());
     }
 
     /**
@@ -66,7 +59,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customer.edit')->withCustomer($customer);
     }
 
     /**
@@ -76,9 +69,12 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerForm $request, Customer $customer)
     {
-        //
+        $request->persist($customer);
+
+        return redirect(route('customers.index'))
+        ->with('success', 'Cliente Alterado com sucesso');
     }
 
     /**
