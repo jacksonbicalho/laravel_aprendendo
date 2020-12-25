@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home')->middleware('verified');
     Route::resource('customers', CustomerController::class);
 
 
