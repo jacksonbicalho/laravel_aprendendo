@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', 'HomeController@index')->name('home')->middleware('verified');
     Route::resource('customers', CustomerController::class);
+    Route::resource('product-categories', ProductCategoryController::class);
 
 
 });

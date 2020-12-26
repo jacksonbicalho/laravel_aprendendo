@@ -14,7 +14,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('customer.index', ['customers' => Customer::all()]);
+        return view('customer.index', [
+            'customers' => Customer::all()
+        ]);
     }
 
     /**
@@ -41,7 +43,6 @@ class CustomerController extends Controller
      */
     public function store(CustomerForm $request)
     {
-
         return $this->update($request, new Customer());
     }
 
